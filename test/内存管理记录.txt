@@ -1,0 +1,36 @@
+系统链接库地址不随随机化改变，内存结构中tiny和small结构如下
+fk
+bk
+
+但是添加了checksum所以无法直接利用
+另外 zone是堆的管理结构，里面有malloc的地址
+内核堆链接http://sbim.github.io/heap.html
+https://amywushu.github.io/2016/08/29/译-iOS-Kernel-Heap-Armageddon.html
+zmalloc，双向链表加checksum
+kmalloc 没有size
+
+_MALLOC size加内存
+
+另外由于是cpp代码，所以存在object类，vtable
+
+
+
+http://sbim.github.io/heap.html
+https://gsec.hitb.org/materials/sg2016/D2%20-%20Stefan%20Esser%20-%20iOS%2010%20Kernel%20Heap%20Revisited.pdf
+
+最新 freelist新堆快随机
+beebdeff填满
+ncookie与pcookie
+头尾校验
+小堆快采用page
+Page双向链表有校验
+__mallloc没有size
+
+https://amywushu.github.io/2016/08/29/译-iOS-Kernel-Heap-Armageddon.html
+
+osobject结构
+v
+retain 
+flag
+len
+data
