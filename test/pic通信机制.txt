@@ -1,4 +1,8 @@
 http://turingh.github.io/2017/01/10/CVE-2016-7637-%E5%86%8D%E8%B0%88Mach-IPC/
 
 
-ipc port在堆上
+task指向ipcspace
+ipcspace指向table
+Table里面子项目指向ipc port
+为什么ipcspace里面要有子表不知道
+为什么要用tree不知道

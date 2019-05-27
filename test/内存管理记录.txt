@@ -28,9 +28,21 @@ __mallloc没有size
 
 https://amywushu.github.io/2016/08/29/译-iOS-Kernel-Heap-Armageddon.html
 
+
+所有堆全在不同的zone上，zone里面的freelist管理结构（如果一页不够貌似会申请第二页，free——list也会一直指过去，只有少量zone又这个技能）
+另外新的结构开了pape，free_element放在这里面了，为了能防止泄漏，变成相对偏移。
+Pape之间双向链表
+
+
+
 osobject结构
 v
 retain 
 flag
 len
 data
+
+
+另外osdata需要申请另一个堆存数据
+osstring也是
+arrray有别的结构
