@@ -8,7 +8,7 @@ sw_vers | grep BuildVersion
 sudo cp /Library/Developer/KDKs/KDK_10.12.6_16G29.kdk/System/Library/Kernels/kernel.development /System/Library/Kernels/
 
 
-sudo nvram boot-args="debug=0x141 kext-dev-mode=1 kcsuffix=development pmuflags=1 -v"
+sudo nvram boot-args="debug=0x145 kext-dev-mode=1 kcsuffix=development pmuflags=1 -v"
 
 boot-args：系统的启动参数
 debug=0×141，表示系统可以进行远程链接调试
