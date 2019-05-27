@@ -1,0 +1,4 @@
+http://turingh.github.io/2017/01/10/CVE-2016-7637-%E5%86%8D%E8%B0%88Mach-IPC/
+
+
+ipc port在堆上

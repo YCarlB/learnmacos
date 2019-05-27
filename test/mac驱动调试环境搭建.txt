@@ -24,7 +24,7 @@ sudo kextcache -invalidate /
 c接着配置lldb
 $lldb
 
->target create /Library/Developer/KDKs/KDK_10.12.6_16G29.kdk/System/Library/Kernels/kernel.development
+>target create /Library/Developer/KDKs/KDK_10.12.6s s_16G29.kdk/System/Library/Kernels/kernel.development
 然后会出现错误，依照错误提示执行两个命令
 command script import "/Library/Developer/KDKs/KDK_10.11.1_15B42.kdk/System/Library/Kernels/kernel.development.dSYM/Contents/Resources/DWARF/../Python/kernel.py"
 
@@ -39,5 +39,8 @@ echo “settings set target.load-script-from-symbol-file true” > ~/.lldginit
 然后重启虚拟机（这里一定要重启，我关机再开了好几次没反应，气死了）
 出现debug wait后在lldb中输入kdp-remote  192.168.31.128
 
+
+如果要在运行的时候进行断点，需要输入com+alt+con
+然后同时按下～的下键和esc
 
 
