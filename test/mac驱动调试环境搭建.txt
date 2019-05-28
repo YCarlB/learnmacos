@@ -43,7 +43,7 @@ echo “settings set target.load-script-from-symbol-file true” > ~/.lldginit
 如果要在运行的时候进行断点，需要输入com+alt+con
 然后同时按下～的下键和esc
 
-showmods是看驱动的
+showallkmods是看驱动的
 如何看某个进程对应的堆结构啊
 
 
