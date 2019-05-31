@@ -1,2 +1,38 @@
-Mac官方不想让人调试内核？
-人家解决问题，苹果解决出问题的人，可以可以
+
+FFFFFF8030156C40
+
+(lldb) x/20xg FFFFFF8030156C40
+0xffffff8030156c40: 0xffffff801f60ff68 0x0000000000010001
+0xffffff8030156c50: 0x0000000041414141 0x0000000000000020
+0xffffff8030156c60: 0x0000000000000000 0xdeadbeefdeadbeef
+0xffffff8030156c70: 0xffffff801f6110f0 0x0000000000010001
+
+FFFFFF803017C5E0
+
+0xffffff803017c5e0: 0xffffff801f60ff68 0x0000000000000001
+0xffffff803017c5f0: 0x0000000041414141 0x0000000000000020
+0xffffff803017c600: 0x0000000000000000 0xdeadbeefdeadbeef
+第一次释放后
+
+(lldb) x/20xg FFFFFF8030156C40
+0xffffff8030156c40: 0xffffff8030156760 0xdeadbeefdeadbeef
+0xffffff8030156c50: 0xdeadbeefdeadbeef 0xdeadbeefdeadbeef
+0xffffff8030156c60: 0xdeadbeefdeadbeef 0xfacade5fd8e70365
+
+(lldb) x/20xg FFFFFF803017C5E0
+0xffffff803017c5e0: 0xffffff801f60ff68 0x0000000000010001
+0xffffff803017c5f0: 0x0000000041414141 0x0000000000000020
+0xffffff803017c600: 0x0000000000000000 0xdeadbeefdeadbeef
+
+最后一次c前
+(lldb) x/20xg FFFFFF8030156C40
+0xffffff8030156c40: 0xffffff8030156760 0xdeadbeefdeadbeef
+0xffffff8030156c50: 0xdeadbeefdeadbeef 0xdeadbeefdeadbeef
+0xffffff8030156c60: 0xdeadbeefdeadbeef 0xfacade5fd8e70365
+
+
+(lldb) x/20xg FFFFFF803017C5E0
+0xffffff803017c5e0: 0xffffff803017c4c0 0xdeadbeefdeadbeef
+0xffffff803017c5f0: 0xdeadbeefdeadbeef 0xdeadbeefdeadbeef
+0xffffff803017c600: 0xdeadbeefdeadbeef 0xfacade5fd8e5a0c5
+0xffffff803017c610: 0xffffff801f6110f0 0x0000000000010001
