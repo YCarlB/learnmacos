@@ -1,0 +1,25 @@
+https://www.anquanke.com/post/id/86977
+https://theori.io/research/korean/osx-kernel-exploit-2
+https://gentle-knife.github.io/2019/02/26/mach_msg%E8%AF%A6%E8%A7%A3/
+
+mach_voucher_extract_attr_recipe_args  堆溢出
+
+申请massage在堆上
+
+第一个指针address指向port
+
+更改他指向用户态
+
+设置虚假的port和task
+然后调用clock_sleep_trap猜测地址
+然后调用pid_for_task获取内存内容猜测内核地址
+然后调用pid_for_task 指向allproc 里面存着的所有进程信息
+
+allproc指向proc的pid
+pid_for_task获取程序pid
+然后proc-0x10是下一个的指针
+
+然后用kerneltask里面的数据调用task_get_speacial_pot来提升端口权限，然后调用
+mach_vm_read_overwrite
+mach_vm_write
+读写任意内存

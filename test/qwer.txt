@@ -1,38 +1,217 @@
-
-FFFFFF8030156C40
-
-(lldb) x/20xg FFFFFF8030156C40
-0xffffff8030156c40: 0xffffff801f60ff68 0x0000000000010001
-0xffffff8030156c50: 0x0000000041414141 0x0000000000000020
-0xffffff8030156c60: 0x0000000000000000 0xdeadbeefdeadbeef
-0xffffff8030156c70: 0xffffff801f6110f0 0x0000000000010001
-
-FFFFFF803017C5E0
-
-0xffffff803017c5e0: 0xffffff801f60ff68 0x0000000000000001
-0xffffff803017c5f0: 0x0000000041414141 0x0000000000000020
-0xffffff803017c600: 0x0000000000000000 0xdeadbeefdeadbeef
-第一次释放后
-
-(lldb) x/20xg FFFFFF8030156C40
-0xffffff8030156c40: 0xffffff8030156760 0xdeadbeefdeadbeef
-0xffffff8030156c50: 0xdeadbeefdeadbeef 0xdeadbeefdeadbeef
-0xffffff8030156c60: 0xdeadbeefdeadbeef 0xfacade5fd8e70365
-
-(lldb) x/20xg FFFFFF803017C5E0
-0xffffff803017c5e0: 0xffffff801f60ff68 0x0000000000010001
-0xffffff803017c5f0: 0x0000000041414141 0x0000000000000020
-0xffffff803017c600: 0x0000000000000000 0xdeadbeefdeadbeef
-
-最后一次c前
-(lldb) x/20xg FFFFFF8030156C40
-0xffffff8030156c40: 0xffffff8030156760 0xdeadbeefdeadbeef
-0xffffff8030156c50: 0xdeadbeefdeadbeef 0xdeadbeefdeadbeef
-0xffffff8030156c60: 0xdeadbeefdeadbeef 0xfacade5fd8e70365
-
-
-(lldb) x/20xg FFFFFF803017C5E0
-0xffffff803017c5e0: 0xffffff803017c4c0 0xdeadbeefdeadbeef
-0xffffff803017c5f0: 0xdeadbeefdeadbeef 0xdeadbeefdeadbeef
-0xffffff803017c600: 0xdeadbeefdeadbeef 0xfacade5fd8e5a0c5
-0xffffff803017c610: 0xffffff801f6110f0 0x0000000000010001
+       ZONE            TOT_SZ PAGE_COUNT ALLOC_ELTS  FREE_ELTS    FREE_SZ     ELT_SZ      ALLOC(  ELTS    PGS  WASTE)      FLAGS      NAME                
+0xffffff8021e4d000      65376         16        216         11       3168        288      20480     71      5     32   X$              zones 
+0xffffff8021e4dea0     163680         40        626         34       8432        248       8192     33      2      8  CX$              vm objects 
+0xffffff8021e4dd80      12000          3        218         82       3280         40       4096    101      1     40  CX$          P   vm object hash entries 
+0xffffff8021e4dc60      12152          3         18         31       7688        248       8192     33      2      8   X$@             maps 
+0xffffff8021e4db40      81920         20        802        222      17760         80      20480    256      5      0  CX$@   O      M  VM map entries 
+0xffffff8021e4da20      40000         10         44        456      36480         80       4096     50      1     80    $  FRO     PM  Reserved VM map entries 
+0xffffff8021e4d900       8184          2          0         93       8184         88       8192     93      2      8  CX$              VM map copies 
+0xffffff8021e4d7e0      40000         10         21       1229      39328         32       4096    126      1     64  CX$@ FRO     PM  VM map holes 
+0xffffff8021e4d6c0       4048          1          8          3       1104        368       4096     11      1     48  CX$@             pmap 
+0xffffff8021e4d5a0      40960         10          8          2       8192       4096       4096      1      1      0  CX$@           N pagetable anchors 
+0xffffff8021e4d480     602112        147      12539          5        240         48      12288    256      3      0  CX$@             pv_list 
+0xffffff8021e4d360   32793984       8075     512364         42       2688         64       4096     63      1     64  C   HF       PM  vm pages (max: 0)
+0xffffff8021e4d240     353408         88      21959        129       2064         16       4096    253      1     48  CX           P   kalloc.16 
+0xffffff8021e4d120    1032000        258      30691       1559      49888         32       4096    126      1     64  CX           P   kalloc.32 
+0xffffff8025135ec0    2071680        520      43106         54       2592         48       4096     84      1     48  CX           P   kalloc.48 
+0xffffff8025135da0     686464        173      10723          3        192         64       4096     63      1     64  CX           P   kalloc.64 
+0xffffff8025135c80     248000         62       3051         49       3920         80       4096     50      1     80  CX           P   kalloc.80 
+0xffffff8025135b60    1648320        404       2129      15041    1443936         96       8192     85      2     32  CX               kalloc.96 
+0xffffff8025135a40     192512         47       1467         37       4736        128       4096     32      1      0  CX               kalloc.128 
+0xffffff8025135920     163200         40        957         63      10080        160       8192     51      2     32  CX               kalloc.160 
+0xffffff8025135800     532480        130       2064         16       4096        256       4096     16      1      0  CX               kalloc.256 
+0xffffff80251356e0     204480         50        695         15       4320        288      20480     71      5     32  CX               kalloc.288 
+0xffffff80251355c0     421888        103        817          7       3584        512       4096      8      1      0  CX               kalloc.512 
+0xffffff80251354a0     413696        101        402          2       2048       1024       4096      4      1      0  CX               kalloc.1024 
+0xffffff8025135380      61440         15         30         18      23040       1280      20480     16      5      0  CX               kalloc.1280 
+0xffffff8025135260      45056         11         20          2       4096       2048       4096      2      1      0  CX               kalloc.2048 
+0xffffff8025135140     294912         72         71          1       4096       4096       4096      1      1      0  CX               kalloc.4096 
+0xffffff8025135020     188416         46         22          1       8192       8192       8192      1      2      0  CX               kalloc.8192 
+0xffffff8025134f00       4016          1        218         33        528         16       4096    253      1     48  CX$          P   mem_obj_control 
+0xffffff8025134de0       3976          1         19         52       2912         56       4096     72      1     56  CX           P   device node pager structures 
+0xffffff8025134cc0      31104          8          4          2      10368       5184      16384      3      4    832  CX$@   O         sched groups 
+0xffffff8025134ba0      16384          4          1          0          0      16384      16384      1      4      0  CX @             wqslab.links 
+0xffffff8025134a80      16384          4          1          0          0      16384      16384      1      4      0  CX @             wqslab.prepost 
+0xffffff8025134960       3968          1          1         61       3904         64       4096     63      1     64  CX$@         P   waitq sets 
+0xffffff8025134840       3976          1          6         65       3640         56       4096     72      1     56  CX$@         P   ipc spaces 
+0xffffff8025134720      66528         18        167         31      10416        336       4096     11      1    336  CX$          P   ipc ports 
+0xffffff8025134600       8184          2          3         90       7920         88       8192     93      2      8  CX$@             ipc port sets 
+0xffffff80251344e0       4096          1          6         10       2560        256       4096     16      1      0  CX               ipc kmsgs 
+0xffffff80251343c0       4000          1          1         49       3920         80       4096     50      1     80  CX$@         P   ipc vouchers 
+0xffffff80251342a0       3976          1          5         66       3696         56       4096     72      1     56  CX$@         P   ipc voucher attr controls 
+0xffffff8025134180      12264          3          3         70      11760        168      12288     73      3     24  CX$@             ipc task importance 
+0xffffff8025134060          0          0          0          0          0         88       8192     93      2      8  CX$@             ipc importance inherit 
+0xffffff8025133f40       8160          2          5         80       7680         96       8192     85      2     32  CX$@             semaphores 
+0xffffff8025133e20          0          0          0          0          0        136       4096     30      1     16  CX$@             mk_timer 
+0xffffff8025133d00       4008          1          1        166       3984         24       4096    168      1     48  CX @         P   host_notify 
+0xffffff8025133be0      39680         10        617          3        192         64       4096     63      1     64  CX           P   MAC Labels 
+0xffffff8025133ac0      12240          3          2         83      11952        144      12288     85      3     48  CX$@             coalitions 
+0xffffff80251339a0      77616         19          4         62      72912       1176      77824     66     19    208  CX$@             tasks 
+0xffffff8025133880     121584         30         98          4       4768       1192      20480     17      5    216  CX @             threads 
+0xffffff8025133760       4008          1          1        166       3984         24       4096    168      1     48  CX$          P   thread qos override 
+0xffffff8025133640      32704          8         99         47      10528        224      16384     73      4     32  CX @             x86_64 saved state 
+0xffffff8025133520          0          0          0          0          0         64       4096     63      1     64  CX @         P   x86_64 debug state 
+0xffffff8025133400      53248         13          7         57      47424        832      53248     64     13      0  CX @           N x86 fpsave state 
+0xffffff80251332e0       8184          2          1         92       8096         88       8192     93      2      8  CX @             atm_values 
+0xffffff80251331c0       3968          1          1         61       3904         64       4096     63      1     64  CX @         P   atm_task_descriptors 
+0xffffff80251330a0       4000          1          1         99       3960         40       4096    101      1     40  CX @         P   atm_link_objects 
+0xffffff8025132f80          0          0          0          0          0        112       8192     73      2     16  CX @             bank_task 
+0xffffff8025132e60          0          0          0          0          0         96       8192     85      2     32  CX @             bank_account 
+0xffffff8025132d40     354960        102         99          3      10440       3480       4096      1      1    616  CX @             uthreads 
+0xffffff8025132c20     130816         32       1101         67       7504        112       8192     73      2     16  CX$              thread_call 
+0xffffff8025132b00          0          0          0          0          0         80       4096     50      1     80  CX @         P   alarms 
+0xffffff80251329e0          0          0          0          0          0         40       4096    101      1     40  CX @         P   io_reprioritize_req 
+0xffffff80251328c0          0          0          0          0          0        256       4096     16      1      0  CX               mbuf 
+0xffffff80251327a0      16184          4          2         15      14280        952      16384     17      4    200  CX$              socket 
+0xffffff8025132680          0          0          0          0          0        144      12288     85      3     48  CX$              zombie 
+0xffffff8025132560       4096          1          0          4       4096       1024       4096      4      1      0  CX               namei 
+0xffffff8025132440      12240          3          8         77      11088        144      12288     85      3     48  CX               cred 
+0xffffff8025132320       8136          2          1        112       8064         72       8192    113      2     56  CX               pgrp 
+0xffffff8025132200      20416          5          1         57      20064        352      20480     58      5     64  CX               session 
+0xffffff80251320e0       7704          2          3          0          0       2568       8192      3      2    488  CX               mount 
+0xffffff8025131fc0          0          0          0          0          0        336       4096     11      1    336  CX           P   NFS req 
+0xffffff8025131ea0          0          0          0          0          0        776      16384     21      4     88  CX               NFS mount 
+0xffffff8025131d80          0          0          0          0          0        752      20480     27      5    176  CX               NFS node 
+0xffffff8025131c60     179520         44        732         16       3840        240       4096     17      1     16  CX$              vnodes 
+0xffffff8025131b40      48960         12        440         70       6720         96       8192     85      2     32  CX               namecache 
+0xffffff8025131a20          0          0          0          0          0        152      16384    107      4    120  CX$              plimit 
+0xffffff8025131900      12240          3          3         14      10080        720      12288     17      3     48  CX$              sigacts 
+0xffffff80251317e0       4008          1         11        156       3744         24       4096    168      1     48  CX$          P   fileproc 
+0xffffff80251316c0       8184          2          3         90       7920         88       8192     93      2      8  CX$              file desc 
+0xffffff80251315a0      20264          5          3         14      16688       1192      20480     17      5    216  CX               proc 
+0xffffff8025131480      16280          4          3         34      14960        440      16384     37      4    104  CX$              pstats 
+0xffffff8025131360          0          0          0          0          0        344      20480     59      5    184  CX               NFSV3 srvdesc 
+0xffffff8025131240          0          0          0          0          0        240       4096     17      1     16  CX               NFSV3 diroff 
+0xffffff8025131120          0          0          0          0          0        504       4096      7      1    504  CX           P   ttys 
+0xffffff8025131000       8120          2          3         32       7424        232       8192     35      2     72  CX               ofile tabl 
+0xffffff80260d7ec0          0          0          0          0          0       2048       4096      2      1      0  CX               mbuf clust 
+0xffffff80260d7da0     162688         40        436         60      19680        328      20480     62      5    144  CX$              HFS node 
+0xffffff80260d7c80      28672          7        209         15       1920        128       4096     32      1      0  CX$              HFS fork 
+0xffffff80260d7b60      16224          4          1         38      15808        416      16384     39      4    160  CX               Journal 
+0xffffff80260d7a40       8112          2          1         77       8008        104       8192     78      2     80  CX               Transaction 
+0xffffff80260d7920      24408          6        283         56       4032         72       8192    113      2     56  CX$              specinfo 
+0xffffff80260d7800      12200          3          1         60      12000        200      12288     61      3     88  CX               kqueue 
+0xffffff80260d76e0       3976          1          0         71       3976         56       4096     72      1     56  CX$          P   HFS dirhint 
+0xffffff80260d75c0       4000          1         12         88       3520         40       4096    101      1     40  CX$          P   cluster_read 
+0xffffff80260d74a0          0          0          0          0          0        248       8192     33      2      8  CX$              cluster_write 
+0xffffff80260d7380       8160          2          8         77       7392         96       8192     85      2     32  CX$              fileglob 
+0xffffff80260d7260      11928          3        163         50       2800         56       4096     72      1     56  CX           P   decmpfs_cnode 
+0xffffff80260d7140          0          0          0          0          0        144      12288     85      3     48  CX$              flow_divert_pcb 
+0xffffff80260d7020          0          0          0          0          0         64       4096     63      1     64  CX$          P   flow_divert_group 
+0xffffff80260d6f00          0          0          0          0          0        168      12288     73      3     24  CX$              necp_session_policy 
+0xffffff80260d6de0          0          0          0          0          0        240       4096     17      1     16  CX$              necp_socket_policy 
+0xffffff80260d6cc0          0          0          0          0          0        208       8192     39      2     80  CX$              necp_ip_policy 
+0xffffff80260d6ba0          0          0          0          0          0       1024       8192      8      2      0  CX @             mac_audit_data_zone 
+0xffffff80260d6a80       4096          1          2          6       3072        512       4096      8      1      0  CX               buf.512 
+0xffffff80260d6960          0          0          0          0          0       1024       4096      4      1      0  CX               buf.1024 
+0xffffff80260d6840          0          0          0          0          0       2048       4096      2      1      0  CX               buf.2048 
+0xffffff80260d6720      36864          9          9          0          0       4096       4096      1      1      0  CX               buf.4096 
+0xffffff80260d6600    2252800        550        275          0          0       8192       8192      1      2      0  CX               buf.8192 
+0xffffff80260d64e0          0          0          0          0          0        240       4096     17      1     16  CX               buf headers 
+0xffffff80260d63c0      24552          6        199         80       7040         88       8192     93      2      8  CX$@             ubc_info zone 
+0xffffff80260d62a0      12264          3         19          2       1168        584       4096      7      1      8  CX               mcache 
+0xffffff80260d6180          0          0          0          0          0         32       4096    126      1     64  CX @         P   mcache.bkt_1 
+0xffffff80260d6060          0          0          0          0          0         48       4096     84      1     48  CX @         P   mcache.bkt_3 
+0xffffff80260d5f40          0          0          0          0          0         80       4096     50      1     80  CX @         P   mcache.bkt_7 
+0xffffff80260d5e20          0          0          0          0          0        144      12288     85      3     48  CX @             mcache.bkt_15 
+0xffffff80260d5d00       4080          1          2         13       3536        272       4096     15      1     16  CX @             mcache.bkt_31 
+0xffffff80260d5be0          0          0          0          0          0        400      20480     51      5     80  CX @             mcache.bkt_47 
+0xffffff80260d5ac0          0          0          0          0          0        528      16384     31      4     16  CX @             mcache.bkt_63 
+0xffffff80260d59a0          0          0          0          0          0        784      20480     26      5     96  CX @             mcache.bkt_95 
+0xffffff80260d5880          0          0          0          0          0       1168       8192      7      2     16  CX @             mcache.bkt_143 
+0xffffff80260d5760          0          0          0          0          0       1344       4096      2      1   1344  CX @         P   mcache.bkt_165 
+0xffffff80260d5640          0          0          0          0          0        360      12288     34      3     48  CX @             mcache.audit 
+0xffffff80260d5520      28056          7       1025        144       3456         24       4096    168      1     48  CX @         P   mcache.mext_ref 
+0xffffff80260d5400      12096          3          0          8      12096       1512      12288      8      3    192  CX @             audit_zone 
+0xffffff80260d52e0          0          0          0          0          0       1024       8192      8      2      0  CX @             audit_mac_label_zone 
+0xffffff80260d51c0      12240          3          8         77      11088        144      12288     85      3     48  CX @             knote zone 
+0xffffff80260d50a0          0          0          0          0          0        176      16384     93      4     16  CX @             aiowq 
+0xffffff80260d4f80          0          0          0          0          0        192      12288     64      3      0  CX @             pipe zone 
+0xffffff80260d4e60          0          0          0          0          0         24       4096    168      1     48  CX @         P   pipe garbage zone 
+0xffffff80260d4d40          0          0          0          0          0        264       8192     31      2      8  CX @             ksyn_wait_queue 
+0xffffff80260d4c20          0          0          0          0          0         56       4096     72      1     56  CX @         P   ksyn_waitq_element 
+0xffffff80260d4b00      11712          3          3          1       2928       2928      12288      4      3    576  CX               ifnet 
+0xffffff80260d49e0          0          0          0          0          0         96       8192     85      2     32  CX               ifnet_filter 
+0xffffff80260d48c0       4000          1          3        122       3904         32       4096    126      1     64  CX           P   ifnet_proto_hash 
+0xffffff80260d47a0       8184          2          2         91       8008         88       8192     93      2      8  CX               ifnet_proto 
+0xffffff80260d4680       4096          1          3         29       3712        128       4096     32      1      0  CX               ifnet_tcpstat 
+0xffffff80260d4560       4000          1          3         47       3760         80       4096     50      1     80  CX           P   ifnet_udpstat 
+0xffffff80260d4440          0          0          0          0          0        120       4096     34      1     16  CX               if_llreach 
+0xffffff80260d4320          0          0          0          0          0         40       4096    101      1     40  CX           P   ifnet_fc_zone 
+0xffffff80260d4200       8160          2          5         80       7680         96       8192     85      2     32  CX               ifmultiaddr 
+0xffffff80260d40e0          0          0          0          0          0       1040      20480     19      5    720  CX               pfrulepl 
+0xffffff80260d3fc0          0          0          0          0          0        152      16384    107      4    120  CX               pfsrctrpl 
+0xffffff80260d3ea0          0          0          0          0          0        312       8192     26      2     80  CX               pfstatepl 
+0xffffff80260d3d80          0          0          0          0          0        176      16384     93      4     16  CX               pfstatekeypl 
+0xffffff80260d3c60          0          0          0          0          0         32       4096    126      1     64  CX           P   pfappstatepl 
+0xffffff80260d3b40          0          0          0          0          0         88       8192     93      2      8  CX               pfpooladdrpl 
+0xffffff80260d3a20          0          0          0          0          0       1288       4096      3      1    232  CX               pfrktable 
+0xffffff80260d3900          0          0          0          0          0        216      20480     94      5    176  CX               pfrkentry 
+0xffffff80260d37e0          0          0          0          0          0        216      20480     94      5    176  CX               pfrkentry2 
+0xffffff80260d36c0          0          0          0          0          0        120       4096     34      1     16  CX               pfiaddrpl 
+0xffffff80260d35a0          0          0          0          0          0        112       8192     73      2     16  CX               pfosfpen 
+0xffffff80260d3480          0          0          0          0          0         40       4096    101      1     40  CX           P   pfosfp 
+0xffffff80260d3360          0          0          0          0          0         48       4096     84      1     48  CX           P   pffrent 
+0xffffff80260d3240          0          0          0          0          0         96       8192     85      2     32  CX               pffrag 
+0xffffff80260d3120          0          0          0          0          0         96       8192     85      2     32  CX               pffrcache 
+0xffffff80260d3000          0          0          0          0          0         24       4096    168      1     48  CX           P   pffrcent 
+0xffffff8026189ec0          0          0          0          0          0         40       4096    101      1     40  CX           P   pfstscr 
+0xffffff8026189da0          0          0          0          0          0        328      20480     62      5    144  CX @             classq_sfb 
+0xffffff8026189c80          0          0          0          0          0       3088      16384      5      4    944  CX @             classq_sfb_bins 
+0xffffff8026189b60          0          0          0          0          0        768      12288     16      3      0  CX @             classq_sfb_fcl 
+0xffffff8026189a40          0          0          0          0          0         64       4096     63      1     64  CX @         P   pktsched_tcq 
+0xffffff8026189920          0          0          0          0          0        120       4096     34      1     16  CX @             pktsched_tcq_cl 
+0xffffff8026189800          0          0          0          0          0         88       8192     93      2      8  CX @             pktsched_qfq 
+0xffffff80261896e0          0          0          0          0          0        160       8192     51      2     32  CX @             pktsched_qfq_cl 
+0xffffff80261895c0          0          0          0          0          0         16       4096    253      1     48  CX           P   fadv_zone 
+0xffffff80261894a0          0          0          0          0          0       2272      20480      9      5     32  CX$              socache zone 
+0xffffff8026189380          0          0          0          0          0         24       4096    168      1     48  CX           P   sockaddr_list 
+0xffffff8026189260          0          0          0          0          0         32       4096    126      1     64  CX           P   sockaddr_entry 
+0xffffff8026189140      20304          5          1         93      20088        216      20480     94      5    176  CX @             in_multi 
+0xffffff8026189020          0          0          0          0          0         40       4096    101      1     40  CX @         P   ip_msource 
+0xffffff8026188f00          0          0          0          0          0         32       4096    126      1     64  CX @         P   in_msource 
+0xffffff8026188de0      16352          4          1         72      16128        224      16384     73      4     32  CX               in_ifaddr 
+0xffffff8026188cc0          0          0          0          0          0         72       8192    113      2     56  CX @             ip_moptions 
+0xffffff8026188ba0          0          0          0          0          0         64       4096     63      1     64  CX           P   llinfo_arp 
+0xffffff8026188a80      20328          5          2         31      19096        616      20480     33      5    152  CX @             udpcb 
+0xffffff8026188960          0          0          0          0          0       1344       4096      2      1   1344  CX           P   tcpcb 
+0xffffff8026188840          0          0          0          0          0         32       8192    256      2      0  CX               sack_hole zone 
+0xffffff8026188720          0          0          0          0          0         40       4096    101      1     40  CX           P   tcp_reass_zone 
+0xffffff8026188600          0          0          0          0          0         32       4096    126      1     64  CX           P   tcp_bwmeas_zone 
+0xffffff80261884e0          0          0          0          0          0         40       4096    101      1     40  CX           P   tcp_cc_zone 
+0xffffff80261883c0          0          0          0          0          0         24       4096    168      1     48  CX           P   tcp_rxt_seg_zone 
+0xffffff80261882a0       8160          2          3         48       7680        160       8192     51      2     32  CX               igmp_ifinfo 
+0xffffff8026188180          0          0          0          0          0        616      20480     33      5    152  CX @             divzone 
+0xffffff8026188060          0          0          0          0          0        616      20480     33      5    152  CX @             ripzone 
+0xffffff8026187f40      20304          5          4         90      19440        216      20480     94      5    176  CX @             in6_multi 
+0xffffff8026187e20       4008          1         19        148       3552         24       4096    168      1     48  CX @         P   in6_multi_mship 
+0xffffff8026187d00          0          0          0          0          0         56       4096     72      1     56  CX @         P   ip6_msource 
+0xffffff8026187be0          0          0          0          0          0         48       4096     84      1     48  CX @         P   in6_msource 
+0xffffff8026187ac0       3696          1          2          9       3024        336       4096     11      1    336  CX           P   in6_ifaddr 
+0xffffff80261879a0          0          0          0          0          0         64       4096     63      1     64  CX @         P   ip6_moptions 
+0xffffff8026187880       4000          1          2         48       3840         80       4096     50      1     80  CX           P   llinfo_nd6 
+0xffffff8026187760          0          0          0          0          0         80       4096     50      1     80  CX           P   nd6_dad 
+0xffffff8026187640      16352          4          1         72      16128        224      16384     73      4     32  CX               nd6_prefix 
+0xffffff8026187520          0          0          0          0          0        112       8192     73      2     16  CX               nd6_defrouter 
+0xffffff8026187400          0          0          0          0          0         24       4096    168      1     48  CX           P   nd6_pfxrouter 
+0xffffff80261872e0          0          0          0          0          0         56       4096     72      1     56  CX           P   nd6_prproxy_prelist 
+0xffffff80261871c0          0          0          0          0          0         40       4096    101      1     40  CX           P   nd6_prproxy_solsrc 
+0xffffff80261870a0          0          0          0          0          0         72       8192    113      2     56  CX               nd6_prproxy_soltgt 
+0xffffff8026186f80      16264          4          3        104      15808        152      16384    107      4    120  CX               mld_ifinfo 
+0xffffff8026186e60          0          0          0          0          0        376      20480     54      5    176  CX               mptcb 
+0xffffff8026186d40          0          0          0          0          0        176      16384     93      4     16  CX               mptsub 
+0xffffff8026186c20          0          0          0          0          0         32       4096    126      1     64  CX           P   mptopt 
+0xffffff8026186b00          0          0          0          0          0         32       8192    256      2      0  CX               mptauth 
+0xffffff80261869e0       3984          1         16         67       3216         48       4096     84      1     48  CX           P   mptkeys 
+0xffffff80261868c0          0          0          0          0          0         56       4096     72      1     56  CX @         P   kerneventpcb 
+0xffffff80261867a0          0          0          0          0          0        200      12288     61      3     88  CX @             unpzone 
+0xffffff8026186680      20336          5          6         56      18368        328      20480     62      5    144  CX$              rtentry 
+0xffffff8026186560     320000         80          0       4000     320000         80       4096     50      1     80   X  HF       P   fs-event-buf (max: 327680)
+0xffffff8026186440       4096          1          3         29       3712        128       4096     32      1      0  CX @             dtrace.dtrace_probe_t 
+0xffffff8026186320          0          0          0          0          0         64       4096     63      1     64  CX           P   bridge_rtnode 
+0xffffff8026186200          0          0          0          0          0         40       4096    101      1     40  CX           P   content_filter 
+0xffffff80261860e0          0          0          0          0          0        664       4096      6      1    112  CX               cfil_info 
+0xffffff8026185fc0          0          0          0          0          0        608      12288     20      3    128  CX               packet_mangler 
+0xffffff8026185ea0       8000          2        199          1         40         40       4096    101      1     40  CX$          P   vnode pager structures 
+0xffffff8026185d80          0          0          0          0          0         64       8192    128      2      0  CX$              compressor_pager 
+0xffffff8026185c60          0          0          0          0          0       1024       4096      4      1      0  CX$              compressor_segment 
