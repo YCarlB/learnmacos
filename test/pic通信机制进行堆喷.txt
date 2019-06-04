@@ -2,6 +2,67 @@ https://www.anquanke.com/post/id/86977
 https://theori.io/research/korean/osx-kernel-exploit-2
 https://gentle-knife.github.io/2019/02/26/mach_msg%E8%AF%A6%E8%A7%A3/
 
+
+
+
+typedef struct
+{
+	natural_t					pad1;
+	mach_msg_size_t				pad2;
+	unsigned int				pad3 : 24;
+	mach_msg_descriptor_type_t	type : 8;
+} mach_msg_type_descriptor_t;
+
+typedef struct
+{
+	mach_port_t					name;
+	// Pad to 8 bytes everywhere except the K64 kernel where mach_port_t is 8 bytes 	
+	mach_msg_size_t				pad1;
+	unsigned int				pad2 : 16;
+	mach_msg_type_name_t		disposition : 8;
+	mach_msg_descriptor_type_t	type : 8;
+} mach_msg_port_descriptor_t;
+
+typedef struct
+{
+	void*						address;
+	#if !defined(__LP64__) 
+	mach_msg_size_t				size;
+	#endif 
+	boolean_t					deallocate: 8;
+	mach_msg_copy_options_t		copy: 8;
+	unsigned int				pad1: 8;
+	mach_msg_descriptor_type_t	type: 8;
+	#if defined(__LP64__) 
+	mach_msg_size_t				size;
+	#endif 
+} mach_msg_ool_descriptor_t;
+
+typedef struct
+{
+	void*						address;
+	#if !defined(__LP64__) 
+	mach_msg_size_t				count;
+	#endif 
+	boolean_t					deallocate: 8;
+	mach_msg_copy_options_t		copy: 8;
+	mach_msg_type_name_t		disposition : 8;
+	mach_msg_descriptor_type_t	type : 8;
+	#if defined(__LP64__) 
+	mach_msg_size_t				count;
+	#endif 
+} mach_msg_ool_ports_descriptor_t;
+
+
+
+
+首先因为内核使用了许久，所以先申请大量chunk让地址连续
+然后为了能够利用连续的地址，释放一部分，释放可以保证他没有相邻的被一起释放，没必要一定全释放掉
+但是少了可能被系统抢占
+申请一半作为消息
+申请新的一个内存作为利用
+找到这个端口
+
 mach_voucher_extract_attr_recipe_args  堆溢出
 
 申请massage在堆上
