@@ -18,7 +18,8 @@ _MALLOC size加内存
 http://sbim.github.io/heap.html
 https://gsec.hitb.org/materials/sg2016/D2%20-%20Stefan%20Esser%20-%20iOS%2010%20Kernel%20Heap%20Revisited.pdf
 
-最新 freelist新堆快随机
+最新 freelist新堆快随机（不是完全随机。freelist按照随机顺序进行初始化。从iOS 9.2开始，新分配内存时，每次添加内存进入free_elements的顺序已经不是线性地从一页的开始到结束。而是随机的决定，是添加当前的第一个元素还是当前的最后一个元素。
+）
 beebdeff填满
 ncookie与pcookie
 头尾校验

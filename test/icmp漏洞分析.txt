@@ -5,3 +5,7 @@ ip_input
 ip_dooptions
 -〉
 icmp_error
+
+在icmo_error里面拷贝了数据包n
+向一个固定大小的堆。
+明天尝试用堆喷利用
