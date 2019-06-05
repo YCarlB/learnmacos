@@ -1,4 +1,4 @@
-sysctl machdep.cpu
+sysctl machdep.cpu查看smap
 
 
 Debugger commands:

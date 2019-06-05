@@ -7,3 +7,8 @@
 
 https://www.anquanke.com/post/id/86972驱动漏洞利用
 驱动入口点 userclint，属性， 接入口（参见cve-2016）ioctl
+
+调试 控制台里面有信息
+
+ IORegistryExplorer看驱动
+Log命令看信息也行
