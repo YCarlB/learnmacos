@@ -24,9 +24,9 @@ sudo kextcache -invalidate /
 c接着配置lldb
 $lldb
 
->target create /Library/Developer/KDKs/KDK_10.12.6s s_16G29.kdk/System/Library/Kernels/kernel.development
+>target create /Library/Developer/KDKs/KDK_10.12.2_16C67.kdk/System/Library/Kernels/kernel.development
 然后会出现错误，依照错误提示执行两个命令
-command script import "/Library/Developer/KDKs/KDK_10.11.1_15B42.kdk/System/Library/Kernels/kernel.development.dSYM/Contents/Resources/DWARF/../Python/kernel.py"
+command script import "/Library/Developer/KDKs/KDK_10.12.2_16C67.kdk/System/Library/Kernels/kernel.development.dSYM/Contents/Resources/DWARF/../Python/lldbmacros/xnu.py"
 
 退出lldb
 echo “settings set target.load-script-from-symbol-file true” > ~/.lldbinit

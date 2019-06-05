@@ -2,7 +2,9 @@ https://www.anquanke.com/post/id/86977
 https://theori.io/research/korean/osx-kernel-exploit-2
 https://gentle-knife.github.io/2019/02/26/mach_msg%E8%AF%A6%E8%A7%A3/
 
-
+这里有个问题，这个漏洞必须使用makefile
+他的size地址当作size，所以size必须小于0x4000000
+https://googleprojectzero.blogspot.com/2017/04/exception-oriented-exploitation-on-ios.html
 
 
 typedef struct
