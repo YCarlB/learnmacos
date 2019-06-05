@@ -1,3 +1,5 @@
+https://googleprojectzero.blogspot.com/2017/04/exception-oriented-exploitation-on-ios.html
+
 如果申请大小在2048到4096，那么可以一次申请一页，因此可以绕过页内随机化。
 
 另外kmsg是这次利用的主题 
