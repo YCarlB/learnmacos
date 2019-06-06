@@ -49,3 +49,12 @@ showallkmods是看驱动的
 
 另外，对于voltron与zprint之间貌似存在冲突不能同时使用，很难受
 
+
+
+要想恢复内核
+删除以下内容/System/Library/
+Kernels/kernel.development
+PrelinkedKernels/prelinkedkernel.development
+Caches/com.apple.kext.caches/Startup/kernelcache.development
+让缓存失效
+sudo kextcache -i /
