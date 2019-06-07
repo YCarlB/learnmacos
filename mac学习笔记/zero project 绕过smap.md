@@ -1,8 +1,11 @@
-https://googleprojectzero.blogspot.com/2017/04/exception-oriented-exploitation-on-ios.html
 
-如果申请大小在2048到4096，那么可以一次申请一页，因此可以绕过页内随机化。
 
-另外kmsg是这次利用的主题 
+# 绕过smap的堆喷
+
+## 如果申请大小在2048到4096，那么可以一次申请一页，因此可以绕过页内随机化。
+
+## 另外kmsg是这次利用的主题 
+
 struct ipc_kmsg {
   mach_msg_size_t ikm_size;
   struct ipc_kmsg * ikm_next;
@@ -19,6 +22,10 @@ struct ipc_kmsg {
 通过更改 kmsg的size来进行信息泄漏
 
 传递一个exception_mask 的EXC_MASK_ALL，EXCEPTION_STATE 的行为和ARM_THREAD_STATE64 为new_flavor 意味着内核将发送exception_raise_state 消息，我们指定每当指定线程错误的异常端口。该消息将包含所有ARM64通用目标寄存器的状态，这就是我们将用于从ipc_kmsg 缓冲区末尾写入受控数据的内容！
+
+
+
+### 编写
 
 在我们的iOS XCode项目中，我们可以添加一个新的程序集文件并定义一个函数load_regs_and_crash ：
 
@@ -48,3 +55,7 @@ brk 0
 信息泄漏出堆地址，然后释放第二个msg，更改为OSSerializer :: serialize
 
 泄漏内核地址，更改虚表指针
+
+
+
+https://googleprojectzero.blogspot.com/2017/04/exception-oriented-exploitation-on-ios.html

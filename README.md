@@ -1,9 +1,41 @@
 # learnmacos
-mac资料学习记录
+mac内核漏洞挖掘，内核处理原理，漏洞分析的学习笔记。
 
-东西越积越多，端午要彻底整理一下
+## 项目文件说明
 
-https://i.blackhat.com/eu-18/Thu-Dec-6/eu-18-Zheng-Eternal-War-in-XNU-Kernel-Objects.pdf
-todo
-https://bazad.github.io/2018/03/a-fun-xnu-infoleak/
+### 内核调试环境搭建
+
+
+
+### ipc通信机制
+
+​	mach port 分析
+
+​	ool和msg分析
+
+​	port进行的堆喷
+
+
+
+### 内存管理机制分析
+
+​	
+
+
+
+### 内核扩展与iokit
+
+
+
+
+
+### mac结构说明
+
+task结构
+
+整体架构
+
+
+
+
 
