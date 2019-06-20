@@ -58,4 +58,8 @@ brk 0
 
 
 
+mac上大小在4096里面的类IOBluetoothHCIRequest
+
+
+
 https://googleprojectzero.blogspot.com/2017/04/exception-oriented-exploitation-on-ios.html
