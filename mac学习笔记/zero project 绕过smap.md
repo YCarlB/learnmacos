@@ -60,6 +60,12 @@ brk 0
 
 mac上大小在4096里面的类IOBluetoothHCIRequest
 
+调用IOBluetoothHCIController
+触发host的构造
 
+蓝牙接口https://github.com/phracker/MacOSX-SDKs/blob/master/MacOSX10.5.sdk/System/Library/Frameworks/Kernel.framework/Versions/A/Headers/IOKit/bluetooth/IOBluetoothHCIRequest.h
 
 https://googleprojectzero.blogspot.com/2017/04/exception-oriented-exploitation-on-ios.html
+
+
+

