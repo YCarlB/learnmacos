@@ -69,6 +69,7 @@ ip_dooptions函数
 
 如果数据出错就调用icmp_error函数
 
+通过设置错误的长度来触发漏洞
 ## 漏洞分析
 
 在icmo_error里面拷贝了数据包n
@@ -80,38 +81,97 @@ m_copydata(n, 0, icmplen, (caddr_t)&icp->icmp_ip);
 ```
 
 
-
-向上可以看到icp->icmp_ip来自m，m的大小是固定的
-
-
+确认icmplen的长度
 
 ```
-if (MHLEN > (sizeof(struct ip) + ICMP_MINLEN + icmplen))
-  m = m_gethdr(M_DONTWAIT, MT_HEADER);  /* MAC-OK */
-else
-  m = m_getcl(M_DONTWAIT, MT_DATA, M_PKTHDR);
+nlen = m_length(n);
+
+
+
+icmpelen = max(tcphlen, min(icmp_datalen,
+(oip->ip_len - oiphlen)));
+}
+
+
+
+通过这一段
+th = (struct tcphdr *)(void *)((caddr_t)oip + oiphlen);
+
+if (th != ((struct tcphdr *)P2ROUNDDOWN(th,
+sizeof(u_int32_t))))
+goto freeit;
+tcphlen = th->th_off << 2;
+tcphlen长度60
+另一个为包裹总长度。
+
+
+
+
+icmplen = min(oiphlen + icmpelen, nlen);
+    oiphlen长度为ip结构长度28
+
 ```
+计算后，这个玩意是不带l链路层的包裹长度88
+```
+m_getcl(int wait, int type, int flags)
+{
+struct mbuf *m;
+int mcflags = MSLEEPF(wait);
+int hdr = (flags & M_PKTHDR);
 
-mtod用于获取m的数据指针：
+/* Is this due to a non-blocking retry?  If so, then try harder */
+if (mcflags & MCR_NOSLEEP)
+mcflags |= MCR_TRYHARD;
+
+m = mcache_alloc(m_cache(MC_MBUF_CL), mcflags);
+if (m != NULL) {
+u_int16_t flag;
+struct ext_ref *rfa;
+void *cl;
+
+VERIFY(m->m_type == MT_FREE && m->m_flags == M_EXT);
+cl = m->m_ext.ext_buf;
+rfa = m_get_rfa(m);
+
+ASSERT(cl != NULL && rfa != NULL);
+VERIFY(MBUF_IS_COMPOSITE(m) && m_get_ext_free(m) == NULL);
+
+flag = MEXT_FLAGS(m);
+
+MBUF_INIT(m, hdr, type);
+MBUF_CL_INIT(m, cl, rfa, 1, flag);
+
+mtype_stat_inc(type);
+mtype_stat_dec(MT_FREE);
+#if CONFIG_MACF_NET
+if (hdr && mac_init_mbuf(m, wait) != 0) {
+m_freem(m);
+return (NULL);
+}
+#endif /* MAC_NET */
+}
+return (m);
+}
+
+
+#define    MBUF_INIT(m, pkthdr, type) {                    \
+_MCHECK(m);                            \
+(m)->m_next = (m)->m_nextpkt = NULL;                \
+(m)->m_len = 0;                            \
+(m)->m_type = type;                        \
+if ((pkthdr) == 0) {                        \
+(m)->m_data = (m)->m_dat;                \
+(m)->m_flags = 0;                    \
+} else {                            \
+(m)->m_data = (m)->m_pktdat;                \
+(m)->m_flags = M_PKTHDR;                \
+MBUF_INIT_PKTHDR(m);                    \
+}                                \
+}
 
 ```
-icp = mtod(m, struct icmp *);
-```
+可以看到，实际上的data就是pktdat，长度87
+写入87-8的地方
 
 
 
-```
-else {
-			if (cnt < IPOPT_OLEN + sizeof (*cp)) {
-				code = &cp[IPOPT_OLEN] - (u_char *)ip;
-				goto bad;
-			}
-			optlen = cp[IPOPT_OLEN];
-			if (optlen < IPOPT_OLEN + sizeof (*cp) ||
-			    optlen > cnt) {
-				code = &cp[IPOPT_OLEN] - (u_char *)ip;
-				goto bad;
-			}
-```
-
-通过设置错误的长度来触发漏洞
