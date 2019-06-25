@@ -219,6 +219,6 @@ goto LABEL_64;
 ## 桥接会数据转发，所以主机有洞也会崩溃，切记
 ## 虚拟机中tcp包无法四字接对齐，所以无法使用
 ```
-     if ( (_WORD *)((char *)v7 + v9) != (_WORD *)(((unsigned __int64)v7 + v9) & 0xFFFFFFFFFFFFFFFCLL) )
-     这个地方非要让tcp四字对其，不知道为啥，也不知道为啥实体机器可以（没真机没法测，但是我自己的机器崩了）
+if ( (_WORD *)((char *)v7 + v9) != (_WORD *)(((unsigned __int64)v7 + v9) & 0xFFFFFFFFFFFFFFFCLL) )
+这个地方非要让tcp四字对其，不知道为啥，也不知道为啥实体机器可以（没真机没法测，但是我自己的机器崩了）
 ```
