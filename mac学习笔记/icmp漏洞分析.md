@@ -77,7 +77,22 @@ ip_dooptions函数
 
 ```
 m_copydata(n, 0, icmplen, (caddr_t)&icp->icmp_ip);
+这里网上的分析全搞错了，其实错的不是这里，实际上错的地方是下面的代码。
+作者后来也澄清了这个问题 https://lgtm.com/blog/apple_xnu_icmp_error_CVE-2018-4407
+* header.
+*/
+icmplen = min(icmplen, M_TRAILINGSPACE(m) -
+sizeof(struct ip) - ICMP_MINLEN);
+m_align(m, ICMP_MINLEN + icmplen);
+m->m_len = ICMP_MINLEN + icmplen; /* for ICMP header and data */
 
+icp = mtod(m, struct icmp *);
+icmpstat.icps_outhist[type]++;
+icp->icmp_type = type;
+if (type == ICMP_REDIRECT)
+
+icp = mtod(m, struct icmp *);函数里面因为长度大于80，所以成了一个负数，导致程序崩溃，这样的话，这个程序
+应该是无法利用的，因为变成了一个狙击的问题，但是没有信息泄漏，只能让他崩溃。
 ```
 
 
@@ -203,3 +218,7 @@ goto LABEL_64;
 
 ## 桥接会数据转发，所以主机有洞也会崩溃，切记
 ## 虚拟机中tcp包无法四字接对齐，所以无法使用
+```
+     if ( (_WORD *)((char *)v7 + v9) != (_WORD *)(((unsigned __int64)v7 + v9) & 0xFFFFFFFFFFFFFFFCLL) )
+     这个地方非要让tcp四字对其，不知道为啥，也不知道为啥实体机器可以（没真机没法测，但是我自己的机器崩了）
+```
