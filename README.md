@@ -53,6 +53,7 @@ task结构
 
 ### 分析的漏洞
 
-http://iosre2.rssing.com/chan-58670222/all_p1055.html
-http://newosxbook.com/tools/joker.html
-http://nah6.com/~itsme/cvs-xdadevtools/iphone/tools/lzssdec.cpp
+### 分析ios内核插件
+  https://github.com/bazad/ida_kernelcache
+
+
