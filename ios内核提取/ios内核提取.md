@@ -13,3 +13,4 @@ http://newosxbook.com/tools/joker.html
 ./joker.universal  -dec kernelcache
 内核会被解压到/tmp/kernel
 
+## http://www.ios-download.com/index.php?page=download&id=3086

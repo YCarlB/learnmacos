@@ -1,4 +1,4 @@
-# 调试环境搭建
+                       # 调试环境搭建
 
 ## 下载安装
 
@@ -117,3 +117,17 @@ sudo kextcache -i /
 ```
 
 ​	
+## 双机调试
+### 远程
+
+sudo nvram boot-args="debug=0x8146 kdp_match_name=firewire fwkdp=0x8000 fwdebug=0x40 pmuflags=1 -v"
+
+### 本机
+开fwkdp -v
+kdb 127.0.0.1
+
+
+
+
+### ref
+https://4hou.win/wordpress/?p=27434
