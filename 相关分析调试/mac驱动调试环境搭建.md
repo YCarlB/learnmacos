@@ -112,8 +112,7 @@ help可以看到命令
 	Kernels/kernel.development
 	PrelinkedKernels/prelinkedkernel.development
 	Caches/com.apple.kext.caches/Startup/kernelcache.development
-让缓存失效
-sudo kextcache -i /
+让缓存失
 ```
 
 ​	

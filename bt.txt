@@ -1,0 +1,12 @@
+* thread #1, stop reason = breakpoint 2.1
+* frame #0: 0xffffff7f8a416ece
+frame #1: 0xffffff7f8a416e1d
+frame #2: 0xffffff7f8a1f5573
+frame #3: 0xffffff7f8a1d9093 IONDRVSupport`IONDRVFramebuffer::_doControl(fb=0xffffff83410ce000, code=1487548800, params=0xffffff8058aa20a0) at IONDRVFramebuffer.cpp:1173 [opt]
+frame #4: 0xffffff7f8a1db602 IONDRVSupport`IONDRVFramebuffer::setCLUTWithEntries(this=0xffffff80466d1900, colors=0xffffff8058aa3180, index=1091379224, numEntries=<unavailable>, options=<unavailable>) at IONDRVFramebuffer.cpp:2672 [opt]
+frame #5: 0xffffff7f8a18b64f IOGraphicsFamily`IOFramebuffer::checkDeferredCLUTSet(this=0xffffff80466d1900) at IOFramebuffer.cpp:3764 [opt]
+frame #6: 0xffffff8009c5e877 kernel`IOTimerEventSource::invokeAction(this=0xffffff80494f66c0, action=(IOGraphicsFamily`IOFramebuffer::deferredCLUTSetTimer(OSObject*, IOTimerEventSource*) at IOFramebuffer.cpp:3694), ts=0xffffff80494f66c0, owner=0xffffff80466d1900, workLoop=0xffffff8048e1f900)(OSObject*, IOTimerEventSource*), IOTimerEventSource*, OSObject*, IOWorkLoop*) at IOTimerEventSource.cpp:116 [opt]
+frame #7: 0xffffff8009c5e799 kernel`IOTimerEventSource::timeoutAndRelease(self=0xffffff80494f66c0, c=<unavailable>) at IOTimerEventSource.cpp:172 [opt]
+frame #8: 0xffffff80095ed9b5 kernel`thread_call_invoke(func=(kernel`IOTimerEventSource::timeoutAndRelease(void*, void*) at IOTimerEventSource.cpp:155), param0=<unavailable>, param1=<unavailable>, call=0xffffff8045e05e30) at thread_call.c:1399 [opt]
+frame #9: 0xffffff80095ed555 kernel`thread_call_thread(group=<unavailable>, wres=<unavailable>) at thread_call.c:1477 [opt]
+frame #10: 0xffffff800955b0ce kernel`call_continuation + 46
