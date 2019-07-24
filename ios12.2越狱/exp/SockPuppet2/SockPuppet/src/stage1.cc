@@ -135,6 +135,7 @@ bool StageOne::GetPortAddr(mach_port_t port, uint32_t expected_ip_bits,
         printf("GetPortAddr: failed to GetPreferTempaddr\n");
       }
       uint64_t maybe_port_kaddr = ((uint64_t)minmtu << 32) | prefer_tempaddr;
+   
       if (!LooksLikeKaddr(maybe_port_kaddr)) {
         continue;
       }

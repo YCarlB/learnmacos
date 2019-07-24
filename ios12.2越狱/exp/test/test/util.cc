@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#define VM_MIN_KERNEL_ADDRESS 0xffffffe000000000ULL
+#define VM_MIN_KERNEL_ADDRESS 0xffffff8000000000ULL
 #define VM_MAX_KERNEL_ADDRESS 0xfffffff3ffffffffULL
 
 bool LooksLikeKaddr(uint64_t addr) {
