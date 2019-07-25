@@ -55,3 +55,6 @@ task结构
 
 ### 分析ios内核插件
   https://github.com/bazad/ida_kernelcache
+  
+### 神奇的利用
+https://www.myhack58.com/Article/html/2/5/2019/92657_3.htm
