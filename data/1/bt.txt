@@ -1,0 +1,61 @@
+rax = 0xffffff80400a7280
+rbx = 0xffffff803de5a680
+rcx = 0x00000000fffffffc
+rdx = 0x00000000fffffffc
+rdi = 0x0000000000000000
+rsi = 0x0000000000000080
+rbp = 0xffffffa3b07bb930
+rsp = 0xffffffa3b07bb8a0
+r8 = 0xffffffa3b07bb770
+r9 = 0xffffffa3b07bb774
+r10 = 0x0000000000000080
+r11 = 0xffffff7f81b2d541
+r12 = 0x0000000000000080
+r13 = 0x0000000000000001
+r14 = 0x0000000000000086
+r15 = 0x0000000000000006
+rip = 0xffffff7f819da104  IONDRVSupport`IONDRVFramebuffer::mapDepthIndex(int, int, bool) + 266 at IONDRVFramebuffer.cpp:1564
+rflags = 0x0000000000000286
+cs = 0x0000000000000008
+fs = 0x00000000ffff0000
+gs = 0x00000000b07b0000
+
+
+rax = 0xffffff80400a7280
+rbx = 0xffffff803de5a680
+rcx = 0xfffffffffffffffc
+rdx = 0x00000000fffffffc
+rdi = 0x0000000000000000
+rsi = 0x0000000000000080
+rbp = 0xffffffa3b07bb930
+rsp = 0xffffffa3b07bb8a0
+r8 = 0xffffffa3b07bb770
+r9 = 0xffffffa3b07bb774
+r10 = 0x0000000000000080
+r11 = 0xffffff7f81b2d541
+r12 = 0x0000000000000080
+r13 = 0x0000000000000001
+r14 = 0x0000000000000086
+r15 = 0x0000000000000006
+rip = 0xffffff7f819da107  IONDRVSupport`IONDRVFramebuffer::mapDepthIndex(int, int, bool) + 269 at IONDRVFramebuffer.cpp:1564
+rflags = 0x0000000000000386
+cs = 0x0000000000000008
+fs = 0x00000000ffff0000
+gs = 0x00000000ffff0000
+
+
+
+* thread #1, stop reason = instruction step over
+* frame #0: 0xffffff7f819da107 IONDRVSupport`IONDRVFramebuffer::mapDepthIndex(this=0xffffff803de5a680, modeID=<unavailable>, depth=<unavailable>, fromDepthMode=<unavailable>) at IONDRVFramebuffer.cpp:1564 [opt]
+frame #1: 0xffffff7f819db422 IONDRVSupport`IONDRVFramebuffer::setDisplayMode(this=0xffffff803de5a680, displayMode=128, depth=-4) at IONDRVFramebuffer.cpp:2546 [opt]
+frame #2: 0xffffff7f819990e1 IOGraphicsFamily`IOFramebuffer::doSetDisplayMode(this=0xffffff803de5a680, displayMode=<unavailable>, depth=<unavailable>) at IOFramebuffer.cpp:11227 [opt]
+frame #3: 0xffffff7f81998fb6 IOGraphicsFamily`IOFramebuffer::extSetDisplayMode(target=0xffffff803de5a680, reference=<unavailable>, args=<unavailable>) at IOFramebuffer.cpp:11161 [opt]
+frame #4: 0xffffff80014858d8 kernel`IOUserClient::externalMethod(this=<unavailable>, selector=<unavailable>, args=0xffffffa3b07bbb48, dispatch=0xffffff7f819b0e60, target=<unavailable>, reference=<unavailable>) at IOUserClient.cpp:5689 [opt]
+frame #5: 0xffffff7f8199f366 IOGraphicsFamily`IOFramebufferUserClient::externalMethod(this=<unavailable>, selector=<unavailable>, args=<unavailable>, dispatch=<unavailable>, target=<unavailable>, reference=<unavailable>) at IOFramebufferUserClient.cpp:366 [opt]
+frame #6: 0xffffff800148ed82 kernel`::is_io_connect_method(connection=<unavailable>, selector=4, scalar_input=<unavailable>, scalar_inputCnt=<unavailable>, inband_input=<unavailable>, inband_inputCnt=0, ool_input=0, ool_input_size=0, inband_output="", inband_outputCnt=0xffffff80448f660c, scalar_output=0xffffffa3b07bbcd0, scalar_outputCnt=0xffffffa3b07bbccc, ool_output=0, ool_output_size=0xffffff8048d2b374) at IOUserClient.cpp:4304 [opt]
+frame #7: 0xffffff8000e96736 kernel`_Xio_connect_method(InHeadP=<unavailable>, OutHeadP=0xffffff80448f65e0) at device_server.c:8379 [opt]
+frame #8: 0xffffff8000db426c kernel`ipc_kobject_server(request=0xffffff8048d2b2a0, option=<unavailable>) at ipc_kobject.c:361 [opt]
+frame #9: 0xffffff8000d8eca1 kernel`ipc_kmsg_send(kmsg=0xffffff8048d2b2a0, option=3, send_timeout=0) at ipc_kmsg.c:1868 [opt]
+frame #10: 0xffffff8000da34fe kernel`mach_msg_overwrite_trap(args=<unavailable>) at mach_msg.c:553 [opt]
+frame #11: 0xffffff8000ec1957 kernel`mach_call_munger64(state=0xffffff80447f29a0) at bsd_i386.c:599 [opt]
+frame #12: 0xffffff8000d5c326 kernel`hndl_mach_scall64 + 22
