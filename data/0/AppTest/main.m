@@ -72,11 +72,6 @@ int main(int argc, const char * argv[])
     void* inputStruct=calloc(270,8);
     memset(inputStruct,1,270*8);
 
-  inputvalue[0]=0x80;
-    inputvalue[1]=0xfffffffc;
-
- IOConnectCallMethod(connect,4,&inputvalue,inputCount, NULL,0 , NULL,NULL,NULL,NULL);
-
     inputvalue[0]=18;
     inputvalue[1]=0;
 
